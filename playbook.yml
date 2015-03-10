@@ -1,0 +1,14 @@
+# -*- mode: yaml-*-
+# vi: set ft=yaml sw=2 ts=2 :
+
+- name: Configure scala study machine
+  hosts: all
+  sudo: True
+  tasks:
+    - name: add sbt repository
+      apt_repository: repo='deb http://dl.bintray.com/sbt/debian /' state=present
+
+    - name: install sbt
+      apt: name={{ item }} update_cache=yes force=yes
+      with_items:
+        - sbt
