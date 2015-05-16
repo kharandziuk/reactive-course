@@ -5,6 +5,9 @@
   hosts: all
   sudo: True
   tasks:
+    - name: set locale
+      lineinfile: dest=/etc/default/locale line="LC_ALL=C"
+
     - name: add sbt repository
       apt_repository: repo='deb http://dl.bintray.com/sbt/debian /' state=present
 
@@ -12,3 +15,6 @@
       apt: name={{ item }} update_cache=yes force=yes
       with_items:
         - sbt
+
+    - name: change working directory
+      lineinfile: dest=/home/vagrant/.bashrc line='cd /opt/assignments'
